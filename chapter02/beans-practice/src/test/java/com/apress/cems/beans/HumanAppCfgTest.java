@@ -27,30 +27,28 @@ SOFTWARE.
 */
 package com.apress.cems.beans;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.BDDSoftAssertions.thenSoftly;
 
 /**
  * @author Iuliana Cosmina
  * @since 1.0
  */
-// Comment the @Disabled annotation to run your test
-@Disabled
 class HumanAppCfgTest {
 
     @Test
     void testHumanAndItem() {
-        ConfigurableApplicationContext ctx = new AnnotationConfigApplicationContext(HumanAppCfg.class);
+        final var ctx = new AnnotationConfigApplicationContext(HumanAppCfg.class);
 
-        Human humanBean = ctx.getBean(Human.class);
+        final var humanBean = ctx.getBean(Human.class);
 
-        assertNotNull(humanBean);
-        assertNotNull(humanBean.getItem());
-        assertNotNull(humanBean.getItem().getTitle());
+        thenSoftly(softly -> {
+            softly.then(humanBean).isNotNull();
+            softly.then(humanBean.getItem()).isNotNull();
+            softly.then(humanBean.getItem().getTitle()).isEqualTo("Effective Java");
+        });
 
         ctx.close();
     }

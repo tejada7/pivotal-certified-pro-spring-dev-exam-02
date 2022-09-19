@@ -65,6 +65,7 @@ ext {
     mongoVersion = '2.2.0'
     restAssuredVersion = '4.2.0'
     hamcrestVersion = '2.1'
+    assertJVersion = '3.23.1'
 
     boot = [
             springBootPlugin: "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion",
@@ -142,7 +143,8 @@ ext {
             thymeleafSecurity: "org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE",
             //lombok           : "org.projectlombok:lombok:edge-SNAPSHOT",
             projectReactor   : "io.projectreactor:reactor-core:$reactorVersion",
-            r2dbcH2          : "io.r2dbc:r2dbc-h2:$r2dbcH2Version"
+            r2dbcH2          : "io.r2dbc:r2dbc-h2:$r2dbcH2Version",
+            snakeYaml        : "org.yaml:snakeyaml:1.25"
     ]
 
     testing = [
@@ -162,7 +164,8 @@ ext {
             reactorTest   : "io.projectreactor:reactor-test:$reactorVersion",
             springMockMvc : "io.rest-assured:spring-mock-mvc:$restAssuredVersion",
             nettyReactor  : "io.projectreactor.netty:reactor-netty:$nettyVersion",
-            restAssuredAll: "io.rest-assured:rest-assured-all:$restAssuredVersion" // needed because it is not a transitive dep
+            restAssuredAll: "io.rest-assured:rest-assured-all:$restAssuredVersion", // needed because it is not a transitive dep
+            assertJ: "org.assertj:assertj-core:$assertJVersion"
     ]
 }
 

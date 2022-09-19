@@ -12,15 +12,15 @@ subprojects {
 
         dependencies {
             compile project(':chapter00:dao')
-            compile misc.lang3, misc.slf4j
+            compile misc.lang3, misc.slf4j, /*spring.beans,*/ misc.snakeYaml
 
             compile (misc.logback) {
                 exclude group: "javax.activation", module: "activation"
                 exclude group: "edu.washington.cs.types.checker", module: "checker-framework"
             }
 
-            testCompile spring.test, testing.api
-            testRuntimeOnly testing.platformRunner, testing.engine
+            testCompile spring.test, testing.api, testing.assertJ
+            testRuntimeOnly testing.platformRunner, testing.engine, testing.assertJ
         }
 
         //because Gradle is an idiot
