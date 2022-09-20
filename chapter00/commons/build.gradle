@@ -2,13 +2,21 @@ plugins {
     id 'java-library'
 }
 
-ext.moduleName = 'com.apress.cems.beans.practice'
+ext.moduleName = 'com.apress.commons'
+
+dependencies {
+    compile spring.beans, spring.contextSupport
+}
+
+task prepareKotlinBuildScriptModel {
+
+}
 
 jar {
     manifest {
         attributes(
                 "Created-By": System.getProperty('java.version'),
-                "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 02 - Beans practice",
+                "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 00 - Commons",
                 "Implementation-Version": archiveVersion,
                 "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
         )

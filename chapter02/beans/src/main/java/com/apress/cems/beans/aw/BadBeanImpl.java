@@ -28,9 +28,6 @@ SOFTWARE.
 package com.apress.cems.beans.aw;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Description;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
@@ -38,7 +35,6 @@ import org.springframework.stereotype.Component;
  * @since 1.0
  */
 @Component
-@Scope(proxyMode = ScopedProxyMode.)
 public class BadBeanImpl implements BadBean{
     private MissingBean missingBean;
     private BeanTwo beanTwo;

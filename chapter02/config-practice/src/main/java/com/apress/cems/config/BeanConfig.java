@@ -28,35 +28,25 @@ SOFTWARE.
 package com.apress.cems.config;
 
 import com.apress.cems.pojos.repos.DetectiveRepo;
-import com.apress.cems.pojos.repos.EvidenceRepo;
+import com.apress.cems.repos.JdbcDetectiveRepo;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import static org.junit.jupiter.api.Assertions.*;
+import javax.sql.DataSource;
 
 /**
  * @author Iuliana Cosmina
  * @since 1.0
  */
-// TODO 11. Modify this test class to use more than one configuration class
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {FullConfig.class})
-public class FullConfigTest {
+@Configuration
+@ComponentScan(basePackages = {"com.apress.cems.repos"})
+@Import(DbConfig.class)
+public class BeanConfig {
 
-    @Autowired
-    EvidenceRepo evidenceRepo;
-
-    @Autowired
-    DetectiveRepo detectiveRepo;
-
-    @Test
-    public void testInjectedBeans(){
-        assertNotNull(evidenceRepo);
-        assertNotNull(detectiveRepo);
+    @Bean
+    DetectiveRepo detectiveRepo(final DataSource dataSource) {
+        return new JdbcDetectiveRepo(dataSource);
     }
-
 }

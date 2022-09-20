@@ -1,4 +1,4 @@
-package com.apress.cems.beans;
+package com.apress.commons;
 
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.env.PropertiesPropertySource;

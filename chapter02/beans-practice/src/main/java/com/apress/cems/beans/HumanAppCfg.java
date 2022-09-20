@@ -27,6 +27,7 @@ SOFTWARE.
 */
 package com.apress.cems.beans;
 
+import com.apress.commons.YamlPropertySourceLoader;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;

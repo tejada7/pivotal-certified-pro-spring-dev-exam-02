@@ -13,6 +13,7 @@ module com.apress.cems.config.practice {
     requires spring.jdbc;
     requires java.naming;
     requires java.annotation;
+    requires com.apress.commons;
 
     requires com.apress.cems.pojos;
 }

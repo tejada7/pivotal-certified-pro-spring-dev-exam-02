@@ -28,9 +28,11 @@ SOFTWARE.
 package com.apress.cems.repos;
 
 import com.apress.cems.jupiter.cfg.AllConfig;
+import com.apress.cems.jupiter.cfg.AppConfig;
 import com.apress.cems.jupiter.cfg.TestDbConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +48,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @since 1.0
  */
 @ExtendWith(SpringExtension.class)
-//@ContextConfiguration(classes = {TestDbConfig.class, AppConfig.class})
+// @ContextConfiguration(classes = {TestDbConfig.class, AppConfig.class})
 @ContextConfiguration(classes = {TestDbConfig.class, AllConfig.class})
 @ActiveProfiles("dev")
+@Disabled
 class RepositoryTest {
 
     static final Long PERSON_ID = 1L;

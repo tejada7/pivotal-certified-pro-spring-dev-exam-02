@@ -12,7 +12,8 @@ subprojects {
 
         dependencies {
             compile project(':chapter00:dao')
-            compile misc.lang3, misc.slf4j, /*spring.beans,*/ misc.snakeYaml
+            compile project(':chapter00:commons')
+            compile misc.lang3, misc.slf4j, misc.snakeYaml
 
             compile (misc.logback) {
                 exclude group: "javax.activation", module: "activation"

@@ -21,6 +21,29 @@ subprojects {
             }
         }
 
+        dependencies {
+
+            compile misc.lang3, misc.slf4j, misc.snakeYaml
+
+            compile (misc.logback) {
+                exclude group: "javax.activation", module: "activation"
+                exclude group: "edu.washington.cs.types.checker", module: "checker-framework"
+            }
+
+            testCompile spring.test, testing.api, testing.assertJ
+            testRuntimeOnly testing.platformRunner, testing.engine, testing.assertJ
+        }
+
+        //because Gradle is an idiot
+        test {
+            exclude 'module-info.class'
+            useJUnitPlatform()
+
+            testLogging {
+                events 'PASSED', 'FAILED', 'SKIPPED'
+            }
+        }
+
         afterEvaluate {
             repositories {
                 jcenter()

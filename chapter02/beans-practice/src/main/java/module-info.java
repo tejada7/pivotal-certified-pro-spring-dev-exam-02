@@ -8,4 +8,5 @@
     requires spring.context;
     requires spring.beans;
     requires spring.core;
+    requires com.apress.commons;
 }
