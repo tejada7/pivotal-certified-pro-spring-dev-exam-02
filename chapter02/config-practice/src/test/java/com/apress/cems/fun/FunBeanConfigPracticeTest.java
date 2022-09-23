@@ -27,26 +27,48 @@ SOFTWARE.
 */
 package com.apress.cems.fun;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Testing bean stages creation for a bean that is initialized using all three techniques
+ *
  * @author Iuliana Cosmina
  * @since 1.0
  */
-@Disabled  // comment this annotation to run the test
 class FunBeanConfigPracticeTest {
 
     @Test
     void testBeanLifecyclePractice() {
+        final var logConsole = initLogConsole();
         var ctx = new AnnotationConfigApplicationContext(FunBeanConfig.class);
         ctx.registerShutdownHook();
 
         var funBean = ctx.getBean(FunBean.class);
-        assertNotNull(funBean);
+        then(funBean).isNotNull();
+
+        ctx.close();
+        then(logConsole.toString()).contains("Stage 1: Calling the constructor",
+                                             "Stage 2: Calling the setter",
+                                             "Stage 3: Calling the post-construct",
+                                             "Stage 4: Calling the afterPropertiesSet",
+                                             "Stage 5: Calling the initBeanMethod",
+                                             "Stage 6: Calling the pre-destroyer",
+                                             "Stage 7: Calling the destroyer",
+                                             "Stage 8: Calling the destroyer"
+        );
+    }
+
+    private static ByteArrayOutputStream initLogConsole() {
+        final ByteArrayOutputStream logConsole = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(logConsole));
+        return logConsole;
     }
 }
