@@ -27,21 +27,24 @@ SOFTWARE.
 */
 package com.apress.cems.pojos.services.impl;
 
-import com.apress.cems.dao.*;
+import com.apress.cems.dao.CriminalCase;
+import com.apress.cems.dao.Detective;
+import com.apress.cems.dao.Evidence;
 import com.apress.cems.pojos.repos.CriminalCaseRepo;
 import com.apress.cems.pojos.repos.DetectiveRepo;
 import com.apress.cems.pojos.repos.EvidenceRepo;
 import com.apress.cems.pojos.repos.StorageRepo;
 import com.apress.cems.pojos.services.OperationsService;
 import com.apress.cems.pojos.services.ServiceException;
-import com.apress.cems.util.CaseStatus;
 import com.apress.cems.util.CaseType;
-import com.apress.cems.util.NumberGenerator;
 import com.apress.cems.util.Rank;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author Iuliana Cosmina
@@ -60,19 +63,17 @@ public class SimpleOperationsService implements OperationsService {
 
     @Override
     public CriminalCase createCriminalCase(CaseType caseType, String shortDescription, String badgeNo, Map<Evidence, String> evidenceMap) {
-        // get detective
-        // TODO 1. retrieve detective  (according to diagram 2.5)
+        final var criminalCase = new CriminalCase();
 
-        // create a criminal case instance
-        CriminalCase criminalCase = new CriminalCase();
-        // TODO 2. set fields; use ifPresent(..) to set(or not) the leadDetective field
+        detectiveRepo.findByBadgeNumber(badgeNo)
+                .map(criminalCase::setLeadInvestigator);
 
-        evidenceMap.forEach((ev, storageName) -> {
-            // TODO 3. retrieve storage, throw ServiceException if not found
-            // TODO 4. if storage is found, link it to the evidence and add evidence to the case
-        });
+        evidenceMap.forEach((ev, storageName) -> storageRepo.findByName(storageName)
+                .map(ev::setStorage)
+                .map(criminalCase::addEvidence)
+                .orElseThrow(() -> new ServiceException("Storage not found")));
 
-        // TODO 5. save the criminal case instance
+        criminalCaseRepo.save(criminalCase);
         return criminalCase;
     }
 
@@ -96,7 +97,7 @@ public class SimpleOperationsService implements OperationsService {
         throw new NotImplementedException("Not needed for this section.");
     }
 
-    //setters
+    // setters
     @Override
     public void setCriminalCaseRepo(CriminalCaseRepo criminalCaseRepo) {
         this.criminalCaseRepo = criminalCaseRepo;

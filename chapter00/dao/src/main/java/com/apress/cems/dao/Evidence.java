@@ -75,8 +75,9 @@ public class Evidence extends AbstractEntity {
         return storage;
     }
 
-    public void setStorage(Storage storage) {
+    public Evidence setStorage(Storage storage) {
         this.storage = storage;
+        return this;
     }
 
     public String getNumber() {
