@@ -38,8 +38,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Iuliana Cosmina
  * @since 1.0
  */
-public class AppConfigTest {
-    private Logger logger = LoggerFactory.getLogger(AppConfigTest.class);
+class AppConfigTest {
+    private final Logger logger = LoggerFactory.getLogger(AppConfigTest.class);
 
     @Test
     void testBeanLifecycle() {
